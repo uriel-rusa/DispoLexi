@@ -1,0 +1,115 @@
+{% extends 'layout.html' %}
+    <!--[if lte IE 9]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+        <![endif]-->
+
+{% block title %}
+    DispoLexi | Gráfica Radar
+{% endblock %}
+
+
+{% block content %}
+
+     <!-- bradcam_area -->
+     <div class="bradcam_area">
+        <div class="single_bradcam  d-flex align-items-center bradcam_bg_1 overlay">
+              <div class="container">
+                          <div class="bradcam_text text-center">
+                            <div class="shape_1 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".2s">
+                                <img src="{{ url_for('static', filename = 'img/shape/shape_1.svg')}}" alt="">
+                            </div>
+                            <div class="shape_2 wow fadeInDown" data-wow-duration="1s" data-wow-delay=".3s">
+                                <img src="{{ url_for('static', filename = 'img/shape/shape_2.svg')}}" alt="">
+                            </div>
+                          </div>
+              </div>
+           </div>
+     </div>
+    <!-- bradcam_area end -->
+    <section class="contact-section">
+            <div class="container">
+            	<div class="jumbotron">
+            		<center> <h1 class="display-4">Lista de palabras con IDLV</h1></center>
+  					<p class="text-dark">A continuación se pueden observar todas las listas de palabras con IDLV (Indice de Disponibilidad Lexica de Vocabulario. </p>
+  					<hr class="my-3">
+  					
+  						<table class="table table-striped">
+  							<thead class="bg-info">
+								<tr>
+									<th scope="col">#</th>
+	    							<th scope="col">POBLACIÓN DE INTERÉS</th>
+    	  							<th scope="col">LISTA DE PALABRAS CON IDLV</th>
+	    							<th scope="col">DESCCARGA</th>
+    							</tr>
+  							</thead>
+  							<tbody>
+								
+									{% set cnt = [0] %}
+  							{% for n in lista_poblaciones: %}
+  								<tr>
+								<th scope="col">{{cnt|length}}</th>
+								<td> {{n}}</td>
+								<td><a href="#{{n}}" class="alert-link">Ir a la tabla de palabras</a> </td>
+								<td><a href="{{ url_for('static', filename = 'csv/' + n + '.csv')}} " download class="alert-link ">Descargar archivo csv con las palabras</a></td>
+
+  								</tr>
+  								{% set __ = cnt.append(1)%}
+  							{% endfor %}
+  							</tbody>
+  						</table>
+  						<br>
+  						<hr>
+
+
+
+  					{% for n in lista_poblaciones: %}
+  						<table class="table table-hover">
+
+  							<thead class="thead-dark">
+  								<tr>
+      								<th colspan="3" id="{{n}}" scope="col"><h1 style="color: white;"><center>{{n}}</center></h1></th>
+      							</tr>
+      						</thead>
+      						<thead  class="bg-info">
+      							<tr>
+      								
+      								<th scope="col">#</th>
+      								<th scope="col">Palabras</th>
+      								<th scope="col">Valor IDLV</th>
+      							</tr>
+      						</thead>
+  							
+  							<tbody>
+  									{% set listaPalabras = [] %}
+  									{% for j in dic_Poblaciones[n]['Palabras'].keys(): %}
+  										{% set listaPalabras = listaPalabras.append(j) %}
+  									{% endfor %}
+
+  									{% set listaValores = [] %}
+  									{% for m in dic_Poblaciones[n]['Palabras'].values(): %}
+  										{% set __ = listaValores.append(m) %}
+  									{% endfor %}
+
+
+  								{% for k in range(0,cantidad_palabras): %}
+  								  									<tr>
+      									<th scope="col">{{k + 1}}</th>
+      									<th scope="col">{{listaPalabras[k]}}</th>
+      									<th scope="col">{{listaValores[k]}}</th>
+  									
+  									</tr>
+  								{% endfor %}
+  							</tbody>
+  							
+
+  						</table><br><hr class="my-3">
+
+
+  					{% endfor %}
+
+
+            	</div>
+            </div>
+    </section>
+  
+{%endblock%}

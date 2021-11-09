@@ -1,0 +1,262 @@
+
+{% extends 'layout.html' %}
+    <!--[if lte IE 9]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+        <![endif]-->
+
+{% block title %}
+    DispoLexi | Gráfica de Barras
+{% endblock %}
+
+
+{% block content %}
+
+     <!-- bradcam_area -->
+     <div class="bradcam_area">
+        <div class="single_bradcam  d-flex align-items-center bradcam_bg_1 overlay">
+              <div class="container">
+                          <div class="bradcam_text text-center">
+                            <div class="shape_1 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".2s">
+                                <img src="{{ url_for('static', filename = 'img/shape/shape_1.svg')}}" alt="">
+                            </div>
+                            <div class="shape_2 wow fadeInDown" data-wow-duration="1s" data-wow-delay=".3s">
+                                <img src="{{ url_for('static', filename = 'img/shape/shape_2.svg')}}" alt="">
+                            </div>
+                          </div>
+              </div>
+           </div>
+     </div>
+    <!-- bradcam_area end -->
+
+
+    <script type="text/javascript">
+
+        function deseleccionar_todo(){
+            for (i=0;i<document.f1.elements.length;i++)
+                if(document.f1.elements[i].type == "checkbox")
+                    document.f1.elements[i].checked=0
+        }
+
+        function seleccionar_todo(){
+            for (i=0;i<document.f1.elements.length;i++)
+                if(document.f1.elements[i].type == "checkbox")
+                    document.f1.elements[i].checked=1
+        }
+
+
+        function generaCampos(){
+            var idCantidadPalabras = document.getElementById("cantidadPalabrasID").value;
+            console.log("el valor del rango es: ",idCantidadPalabras);
+            var divNuevo = document.getElementById("nuevo");
+            console.log(divNuevo); 
+            divNuevo.innerHTML = "";
+            divNuevo.innerHTML = divNuevo.innerHTML + "<input type=\"hidden\" name=\"cantidad_palabras\" value =\""+idCantidadPalabras+"\">";
+
+            for (var i = 1; i <= idCantidadPalabras; i++) {
+            
+                divNuevo.innerHTML = divNuevo.innerHTML + "<input type =\"text\" name = \"palabra"+i+"\" id = \" palabraId"+i+"\" class = \"form-control\" placeholder=\"Inserta palabra "+i+"\" />";
+            }
+        }
+    </script>  
+
+ 
+    <!-- Script que tiene la funcion que muestra la ventana modal para cargar archivo -->
+    <script type="text/javascript">
+        //SOLO NUMEROS
+        $(function(){
+            $("#InputNumero").keydown(function(event){
+            //alert(event.keyCode);
+                if((event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 105) && event.keyCode !==190  && event.keyCode !==110 && event.keyCode !==8 && event.keyCode !==9  ){
+                    return false;
+                }
+            });
+        });
+
+        function validateForm() { 
+            var numero = document.getElementById("InputNumero");
+            console.log("Valor de numero: ",numero.value);
+            var contador = 0;
+
+            {%for x in lista_poblaciones:%}
+                var checkbox = document.querySelector('input[id="{{x}}"]:checked');
+                if (checkbox != null) {
+                    contador += 1;
+                }
+            {% endfor %}
+
+            if(contador == 0){
+                alert("Seleccione al menos una población.");
+                return false;
+            }
+        };
+    </script>
+
+
+    <section class="contact-section">
+        <div class="container">
+            <div class="jumbotron">
+                <center> <h1 class="display-6">Gráfica de barras vertical</h1></center><br>
+                <p class="text-dark">Una gráfica de barras proporciona una forma de mostrar valores de datos representados como barras horizontales. A veces se utiliza para mostrar datos de tendencias y la comparación de varios conjuntos de datos uno al lado del otro.</p><br/>
+                <p class="text-dark"><b class="text-danger "><a href="#enviarDatos" class="text-danger">La siguiente gráfica sólo es un ejemplo.</a></b> Para tener una mejor experiencia, debe configurar la gráfica como mejor le convenga. Para eso, es necesario que proporcione la cantidad de palabras que desea mostrar, las poblaciones que deseé comparar y el tipo de palabras que desea obtener.</p>
+                <hr class="my-5">
+
+                <form name="f1" action="{{url_for('graficaBarVer')}}" onsubmit="return validateForm()" method="POST" enctype="multipart/form-data" id="formOpciones" name="myForm" >
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="InputNumero"style="font-size: 18px;" class="text-dark">Ingrese el número de palabras que deseas visualizar en la gráfica. Es recomendable un valor entre 5-20</label>
+                                    
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group-text">
+                                    <input type="text" autocomplete="off" style="width: 95%; height:40px;" class="form-control" id="InputNumero" name="cantidad_palabras" placeholder="Campo obligatorio. Ingresa sólo números" required><b style="font-size: 30px;"> *</b></div>
+                                </div>
+                                
+                                <br>
+                                <label style="font-size: 18px;" class="text-dark">
+                                    Seleccione una opción para elegir las palabras con mayor o menor IDLV de las poblaciones:
+                                </label>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="gridRadios" id="radioMayorIdlv" value="1" checked>
+                                    <label style="font-size: 16px;" class="form-check-label" for="radioMayorIdlv">
+                                        Palabras con mayor IDLV
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="gridRadios" id="radioMenorIdlv" value="2">
+                                    <label style="font-size: 16px;" class="form-check-label" for="radioMenorIdlv">
+                                        Palabras con menor IDLV
+                                    </label>
+                                </div>
+                                <br >
+                                <div class="form-check">
+                                    <center>
+                                        <button type="submit" class="btn btn-primary btn-lg" id="enviarDatos">Generar gráfica</button>
+                                    </center>
+                                </div>
+
+
+
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label style="font-size: 18px;" class="text-dark"> Seleccione las poblaciones que desea comparar:</label>
+                                </div>
+                                {% for n in lista_poblaciones %}
+                                    <input type="checkbox" checked="" id="{{n}}" name="my_checkbox" value="{{n}}" class="form-check-label">
+                                    <label  style="font-size: 18px;" for="{{n}}">&nbsp;{{n}}</label> <br>
+                                     
+                                    
+                                {% endfor %}
+                                <hr>
+                                <div class="col-md">
+                                    <div class="row">
+                                        <div class="col-5">
+                                            <button type="button" class="btn btn-info" onclick="seleccionar_todo()">Seleccionar todo</button>
+                                        </div>
+
+                                        <div class="col-5">
+                                            <button type="button" class="btn btn-info" onclick="deseleccionar_todo()">Deseleccionar todo</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <hr class="my-5" id="ejemplo">
+
+                <center> <h1 class="display-6">Ejemplo de "Gráfica de barras"</h1></center><br>
+                <div class="container">
+                <canvas id="myChart" width="400" height="400"></canvas>
+                <br/>
+               <!-- <canvas id="myChart2" width="400" height="400"></canvas>-->
+            </div> 
+
+
+            </div> 
+        </div>
+    </section>
+
+  <!-- GENERA LA GRAFICA BARRAS VERETICAL-->
+    <script>
+        var palabras = [];
+        {%for x in dic_Palabras_iguales['Palabras']:%}palabras.push('{{x}}')
+        {% endfor %}
+        var dynamicColors = function() {
+            var r = Math.floor(Math.random() * 255);
+            var g = Math.floor(Math.random() * 255);
+            var b = Math.floor(Math.random() * 255);
+            return "rgba(" + r + "," + g + "," + b + ",";
+        }  ;
+    
+        //console.log("valor de palabras: ",palabras);
+
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'horizontalBar',
+            data: {
+                labels: palabras,
+                datasets:[
+                    {% set count = [ ] %}
+                    {% for x in lista_poblaciones:%}
+                        {
+                        label: '{{x}}',
+    
+                        data: [{%for z in dic_Palabras_iguales[x]['IDLV']:%}{{z}},{%endfor%}],
+                        backgroundColor:'{{listaColoresUno[count|length]}}',
+                        borderColor:'{{listaColoresDos[count|length]}}',
+                        borderWidth: 1
+                        },
+                        {% set __ = count.append(1) %}
+                    {% endfor %}
+
+                ]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }],
+                    xAxes: [{
+                        type: 'linear',
+                        position: 'top'
+                    }]
+                }
+            }
+        });
+    </script>
+
+    <script>
+        var ctx2 = document.getElementById('myChart2').getContext('2d');
+        var scatterChart = new Chart(ctx2, {
+            type: 'scatter',
+            data: {
+                datasets: [{
+                    label: 'Scatter Dataset',
+                    data: [{
+                        x: 0,
+                        y: 10
+
+                    }, {
+                        x: 10,
+                        y: 5
+                    }]
+                }]
+            },
+            options: {
+                scales: {
+                    xAxes: [{
+                        type: 'linear',
+                        position: 'top'
+                    }]
+                }
+            }
+        });
+    </script>
+{%endblock%}

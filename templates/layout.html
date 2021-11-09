@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zxx">
+{% block head %}
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+    <meta name="description" content=""/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta http-equiv='cache-control' content='no-cache'>
+    <meta http-equiv='expires' content='0'>
+    <meta http-equiv='pragma' content='no-cache'>
+
+    <!-- <link rel="manifest" href="site.webmanifest"> -->
+    <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename = 'img/favicon_DL.png')}}"/>
+    <!-- Place favicon.ico in the root directory -->
+
+    <script async="" src="http://www.google-analytics.com/analytics.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+    <script src="https://www.chartjs.org/samples/latest/utils.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <!-- CSS here -->
+    <link type="text/css" rel="stylesheet" charset="UTF-8" href="https://translate.googleapis.com/translate_static/css/translateelement.css"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/bootstrap.min.css')}}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/owl.carousel.min.css')}}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/magnific-popup.css')}}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/font-awesome.min.css')}}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/themify-icons.css')}}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/gijgo.css')}}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/nice-select.css')}}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/animate.css')}}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/flaticon.css')}}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/slicknav.css')}}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/style.css')}}"/>
+    <!-- <link rel="stylesheet" href="css/responsive.css"> -->
+
+
+     <!-- JS here -->
+    <!--<script type="text/javascript" src={{cdn_js | safe}}></script> Etiqueta para graficas de bokeh-->
+    <script src="{{ url_for('static', filename = 'js/vendor/modernizr-3.5.0.min.js')}}"></script>
+    <script src="{{ url_for('static', filename = 'js/vendor/jquery-1.12.4.min.js')}}"></script>
+    <script src="{{ url_for('static', filename = 'js/popper.min.js')}}"></script>
+    <script src="{{ url_for('static', filename = 'js/bootstrap.min.js')}}"></script>
+    <script src="{{ url_for('static', filename = 'js/owl.carousel.min.js')}}"></script>
+    <script src="{{ url_for('static', filename = 'js/isotope.pkgd.min.js')}}"></script>
+    <script src="{{ url_for('static', filename = 'js/ajax-form.js')}}"></script>
+    <script src="{{ url_for('static', filename = 'js/waypoints.min.js')}}"></script>
+    <script src="{{ url_for('static', filename = 'js/jquery.counterup.min.js')}}"></script>
+    <script src="{{ url_for('static', filename = 'js/imagesloaded.pkgd.min.js')}}"></script>
+    <script src="{{ url_for('static', filename = 'js/scrollIt.js')}}"></script>
+    <script src="{{ url_for('static', filename = 'js/jquery.scrollUp.min.js')}}"></script>
+    <script src="{{ url_for('static', filename = 'js/wow.min.js')}}"></script>
+    <script src="{{ url_for('static', filename = 'js/gijgo.min.js')}}"></script>
+    <script src="{{ url_for('static', filename = 'js/nice-select.min.js')}}"></script>
+    <script src="{{ url_for('static', filename = 'js/jquery.slicknav.min.js')}}"></script>
+    <script src="{{ url_for('static', filename = 'js/jquery.magnific-popup.min.js')}}"></script>
+    <script src="{{ url_for('static', filename = 'js/tilt.jquery.js')}}"></script>
+    <script src="{{ url_for('static', filename = 'js/plugins.js')}}"></script>
+
+    <!--contact js-->
+    <script src="{{ url_for('static', filename = 'js/contact.js')}}"></script>
+    <script src="{{ url_for('static', filename = 'js/jquery.ajaxchimp.min.js')}}"></script>
+    <script src="{{ url_for('static', filename = 'js/jquery.form.js')}}"></script>
+    <script src="{{ url_for('static', filename = 'js/jquery.validate.min.js')}}"></script>
+    <script src="{{ url_for('static', filename = 'js/mail-script.js')}}"></script>
+    <script src="{{ url_for('static', filename = 'js/main.js')}}"></script>
+	<title>
+		{% block title %} {% endblock %}
+	</title>
+{% endblock %}
+
+
+<body onload="inicializa()">
+    {% block header %}
+        {% include 'header.html' %}
+
+    {% endblock%}
+
+
+
+	{% block content %}
+
+    {% endblock %}
+
+
+    {% block footer %}
+        {% include 'footer.html' %}
+    {% endblock%}
+</body>
+
+</html>
