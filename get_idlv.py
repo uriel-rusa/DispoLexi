@@ -36,7 +36,7 @@ def get_file_name(abs_path):
     abs_path : string
         absolute path
     """
-    path_elements = abs_path.split("\\")
+    path_elements = abs_path.split("/")
     #print("path_elements: ", path_elements)
     name_elements = path_elements[len(path_elements) - 1].split(".")
     #print("name_elements", name_elements)

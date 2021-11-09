@@ -15,7 +15,7 @@ import string
 import re
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
-import io 
+import io
 import shutil
 #import random
 import get_idlv
@@ -41,10 +41,10 @@ from email.header import Header #agregado el 15/octubre 2021
 app = Flask(__name__)
 
 
-UPLOAD_FOLDER = os.path.abspath("./Archivos/")
+UPLOAD_FOLDER = os.path.abspath("/home/DispoLexi/DispoLexi/Archivos/")
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
-OUTPUT_FOLDER = os.path.abspath("./Output")
+OUTPUT_FOLDER = os.path.abspath("/home/DispoLexi/DispoLexi/Output")
 app.config["OUTPUT_FOLDER"] = OUTPUT_FOLDER
 
 listaColoresUno = [
@@ -97,15 +97,15 @@ listaColoresDos = [
 def index():
 	'''
 	#Revisa si existen la carpeta de Archivos y de Output para que se pueda guardar el archivo del usuario
-	if os.path.isdir('Archivos'):
-		shutil.rmtree('Archivos') #Elimina la carpeta Archivos
+	if os.path.isdir('/home/DispoLexi/DispoLexi/Archivos'):
+		shutil.rmtree('/home/DispoLexi/DispoLexi/Archivos') #Elimina la carpeta Archivos
 		print("Se elimino la carpeta Archivos")
-		os.mkdir('Archivos') #Crea una carpeta llamada Archivos
+		os.mkdir('/home/DispoLexi/DispoLexi/Archivos') #Crea una carpeta llamada Archivos
 		print("Se creo la carpeta Archivos")
 	else:
-		os.mkdir('Archivos') #Crea una carpeta llamada Archivos
+		os.mkdir('/home/DispoLexi/DispoLexi/Archivos') #Crea una carpeta llamada Archivos
 		print("Se creo la carpeta Archivos")
-	
+
 
 
 
@@ -119,7 +119,7 @@ def index():
 		print("Se creo la carpeta Output")
 	'''
 
-	
+
 	return render_template('home.html')
 
 @app.route('/acerca_del_proyecto')
@@ -144,7 +144,7 @@ def listasDL():
 		lista_poblaciones_seleccionadas = request.form.getlist("my_checkbox")
 		#opcion_tipo_palabras = request.form.get("gridRadios")
 		cantidad_palabras = int(request.form.get("cantidad_palabras"))
-		
+
 		lista = list(dic_Poblaciones[lista_poblaciones_seleccionadas[0]]['Palabras'].values())
 
 		#print("Poblaciones:",lista_poblaciones_seleccionadas)
@@ -177,7 +177,7 @@ def contacto():
 		contenido += '\nMensaje: ' + mensaje
 
 		#Envía correo a lyr.dti@correo.cua.uam.mx
-		coding = 'latin-1' 
+		coding = 'latin-1'
 		msg = MIMEText(contenido.encode(coding), 'plain', coding)
 		msg['From']    = 'dispolexi@gmail.com'
 		msg['To']      = 'lyr.dti@correo.cua.uam.mx'
@@ -188,10 +188,10 @@ def contacto():
 		server.login('dispolexi@gmail.com','URIELdispolexi')
 		server.sendmail('dispolexi@gmail.com', 'lyr.dti@correo.cua.uam.mx',msg.as_string())
 		server.quit()
-		
+
 
 		#Envía correo a uriel.rusa@hotmail.com
-		coding = 'latin-1' 
+		coding = 'latin-1'
 		msg = MIMEText(contenido.encode(coding), 'plain', coding)
 		msg['From']    = 'dispolexi@gmail.com'
 		msg['To']      = 'uriel.rusa@hotmail.com'
@@ -228,15 +228,15 @@ def subeArchivoPrueba():
 	diccionario_carpetas_archivos = {}
 	nombre_carpeta = ""
 	#Revisa si existen la carpeta de Archivos y de Output para que se pueda guardar el archivo del usuario
-	if os.path.exists('./Archivos'):
-		shutil.rmtree('./Archivos') #Elimina la carpeta Archivos
+	if os.path.exists('/home/DispoLexi/DispoLexi/Archivos'):
+		shutil.rmtree('/home/DispoLexi/DispoLexi/Archivos') #Elimina la carpeta Archivos
 
-	os.mkdir('./Archivos') #Crea una carpeta llamada Archivos
+	os.mkdir('/home/DispoLexi/DispoLexi/Archivos') #Crea una carpeta llamada Archivos
 	#resolution = request.form['resolution'] #Obtiene un mumero del campo resolution en el html
-		
+
 	#Variable que contiene el directorio de archivos
 	contenedor = app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
-	shutil.copy('./static/archivos/Mañaneras.zip', contenedor )#Copia el arcivo de prueba (Mañaneras) en la carpeta contenedora (app/Archivos)
+	shutil.copy('/home/DispoLexi/DispoLexi/static/archivos/Mañaneras.zip', contenedor )#Copia el arcivo de prueba (Mañaneras) en la carpeta contenedora (app/Archivos)
 	#file name contiene el nombre del archivo zip
 	filename = 'Mañaneras.zip'#Se usa la funcion para guardar el archivo zip seleccionado por el usuario y regresa el nombre del zip
 	#print("$$$$$$$$$",filename)
@@ -245,16 +245,16 @@ def subeArchivoPrueba():
 	##Se extraen los nombre de carpetas
 	lista_de_archivos = list(get_idlv.load_files_names(ruta_carpeta_contenedora)) #Crea una lista de rutas, cada ruta corresponde a un archivo
 	lista_de_carpetas = [] #Lista vacia para guardar los nombres de las carpetas que hay en el archivo zip
-			
-	for archivo in lista_de_archivos: #Se recorre la lista de rutas de archivos 
-		archivo = archivo.split('\\') #Se diivide la ruta de los archivos por partes para obtener el nombre de la carpeta
+
+	for archivo in lista_de_archivos: #Se recorre la lista de rutas de archivos
+		archivo = archivo.split('/') #Se diivide la ruta de los archivos por partes para obtener el nombre de la carpeta
 		extrae_nombre_carpeta = archivo[-2] #Se extrae el nombre de la carpeta SE PONE -2 PORQUE SE TOMA EL PENULTIMO VALOR DE LA LISTA DE archivo[]
 		#print("++++++++++EXTRAE CARPETA:", extrae_nombre_carpeta)
 
-		if extrae_nombre_carpeta not in lista_de_carpetas: #Si el normbre de carpeta extraido no se encuentra en la lista de carpetas, se añade a la lista 
+		if extrae_nombre_carpeta not in lista_de_carpetas: #Si el normbre de carpeta extraido no se encuentra en la lista de carpetas, se añade a la lista
 			lista_de_carpetas.append(extrae_nombre_carpeta) #Se agrega el nombre extraido de la carpeta a la lista de carpetas
-			ruta_carpeta = ruta_carpeta_contenedora + '\\' + extrae_nombre_carpeta #Se crea la ruta para acceder a la carpeta seleccionada y poder contar los archivos que tiene
-					
+			ruta_carpeta = ruta_carpeta_contenedora + '/' + extrae_nombre_carpeta #Se crea la ruta para acceder a la carpeta seleccionada y poder contar los archivos que tiene
+
 			lista = []
 			lista.append(len(os.listdir(ruta_carpeta)))
 			lista.append(funciones.color_aleatorio())
@@ -285,8 +285,8 @@ def elige_poblaciones(): #funcion para subir el archivo señalado
 	if request.method == 'POST':
 		nombre_carpeta = ""
 		#Revisa si existen la carpeta de Archivos y de Output para que se pueda guardar el archivo del usuario
-		if os.path.exists('./Archivos'):
-			shutil.rmtree('./Archivos') #Elimina la carpeta Archivos
+		if os.path.exists('/home/DispoLexi/DispoLexi/Archivos'):
+			shutil.rmtree('/home/DispoLexi/DispoLexi/Archivos') #Elimina la carpeta Archivos
 
 		#Obtenemos el archivo desde el form seleccionado por el usuario
 		file = request.files['archivo'] #Obtiene el archivo seleccionado por el usuario
@@ -295,9 +295,9 @@ def elige_poblaciones(): #funcion para subir el archivo señalado
 		if funciones.allowed_file(file.filename):#Si es una extension permitida, hará las siguientes instrucciones
 			#print("Extension valida")
 
-			os.mkdir('./Archivos') #Crea una carpeta llamada Archivos
+			os.mkdir('/home/DispoLexi/DispoLexi/Archivos') #Crea una carpeta llamada Archivos
 			#resolution = request.form['resolution'] #Obtiene un mumero del campo resolution en el html
-			
+
 			#Variable que contiene el directorio de archivos
 			contenedor = app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 			#file name contiene el nombre del archivo zip
@@ -310,16 +310,16 @@ def elige_poblaciones(): #funcion para subir el archivo señalado
 			##Se extraen los nombre de carpetas
 			lista_de_archivos = list(get_idlv.load_files_names(ruta_carpeta_contenedora)) #Crea una lista de rutas, cada ruta corresponde a un archivo
 			lista_de_carpetas = [] #Lista vacia para guardar los nombres de las carpetas que hay en el archivo zip
-			
-			for archivo in lista_de_archivos: #Se recorre la lista de rutas de archivos 
-				archivo = archivo.split('\\') #Se diivide la ruta de los archivos por partes para obtener el nombre de la carpeta
+
+			for archivo in lista_de_archivos: #Se recorre la lista de rutas de archivos
+				archivo = archivo.split('/') #Se diivide la ruta de los archivos por partes para obtener el nombre de la carpeta
 				extrae_nombre_carpeta = archivo[-2] #Se extrae el nombre de la carpeta SE PONE -2 PORQUE SE TOMA EL PENULTIMO VALOR DE LA LISTA DE archivo[]
 				#print("++++++++++EXTRAE CARPETA:", extrae_nombre_carpeta)
 
-				if extrae_nombre_carpeta not in lista_de_carpetas: #Si el normbre de carpeta extraido no se encuentra en la lista de carpetas, se añade a la lista 
+				if extrae_nombre_carpeta not in lista_de_carpetas: #Si el normbre de carpeta extraido no se encuentra en la lista de carpetas, se añade a la lista
 					lista_de_carpetas.append(extrae_nombre_carpeta) #Se agrega el nombre extraido de la carpeta a la lista de carpetas
-					ruta_carpeta = ruta_carpeta_contenedora + '\\' + extrae_nombre_carpeta #Se crea la ruta para acceder a la carpeta seleccionada y poder contar los archivos que tiene
-					
+					ruta_carpeta = ruta_carpeta_contenedora + '/' + extrae_nombre_carpeta #Se crea la ruta para acceder a la carpeta seleccionada y poder contar los archivos que tiene
+
 					lista = []
 					lista.append(len(os.listdir(ruta_carpeta)))
 					lista.append(funciones.color_aleatorio())
@@ -328,8 +328,8 @@ def elige_poblaciones(): #funcion para subir el archivo señalado
 					#diccionario_carpetas_archivos.setdefault(extrae_nombre_carpeta,len(os.listdir(ruta_carpeta))) #Se usa para grafica_de_bokeh
 					diccionario_carpetas_archivos.setdefault(extrae_nombre_carpeta,lista)
 
-			
-			#print("Lista de nombres de carpetas:", lista_de_carpetas)	
+
+			#print("Lista de nombres de carpetas:", lista_de_carpetas)
 			#print("Diccionario ultimoooooo: ", diccionario_carpetas_archivos)
 			#print("COLORES UNO: ", listaColoresUno[0])
 			#print("COLORES DOS: ", listaColoresDos[0])
@@ -372,7 +372,7 @@ def Select_files(): #funcion para procesar los archivos señalados
 
 		#Se revisa si existen las carpetas seleccionadas
 		for carpeta in list_folders_selected:
-			ruta_carpeta = ruta_contenedora + '\\' + carpeta
+			ruta_carpeta = ruta_contenedora + '/' + carpeta
 			if os.path.exists(ruta_carpeta):
 				contador += 1
 
@@ -383,17 +383,17 @@ def Select_files(): #funcion para procesar los archivos señalados
 		#IF si el contador es menor al numero de carpetas seleccionadas es porque no están todas las carpetas
 		if contador < cantidad_folders_seleccionados:
 			print("No estan todas las carpetas seleccionadas", contador)
-			ruta = contenedor + "\\" + filename.split('.')[0]
+			ruta = contenedor + "/" + filename.split('.')[0]
 			funciones.elimina_carpeta(ruta)
 			funciones.extrae_zip(contenedor,filename)
 
 		elif contador == cantidad_folders_seleccionados:
 			print("Estan todas las carpetas", contador)
-		
+
 		funciones.elimina_carpetas(lista_carpetas_poblaciones, list_folders_selected, ruta_contenedora)
 
 		#PROCESO DE ARCHIVOS PARA OBTENER EL IDLV
-		
+
 		archivos = list(get_idlv.load_files_names(ruta_contenedora)) #Crea una lista de rutas, cada ruta corresponde a un archivo
 		#print("archivos: ruta...")
 		#print(archivos)
@@ -402,19 +402,19 @@ def Select_files(): #funcion para procesar los archivos señalados
 
 
 		#print("LLEGA AQUI----------------- PRINT")
-		
-		rutaNormaliza = ruta_contenedora + "\\" + "Texto_normalizado" + "\\"
+
+		rutaNormaliza = ruta_contenedora + "/" + "Texto_normalizado" + "/"
 		stop_words = funciones.carga_stop_words()
 		for z in archivos:
 
-			#print("LLEGA AQUI----------------- ENTRA FOR") 
-			#stop_words = set(stopwords.words('spanish')) 
+			#print("LLEGA AQUI----------------- ENTRA FOR")
+			#stop_words = set(stopwords.words('spanish'))
 			#print("LLEGA AQUI----------------- stopwords")
 			#print(stopwords.words('spanish'))
-			file = open(z,'r', encoding="utf-8") 
+			file = open(z,'r', encoding="utf-8")
 			#print("LLEGA AQUI----------------- abre archivo sasda", z)
 			text = file.read()# Use this to read file content as a stream:
-			#print("LLEGA AQUI-----------------lee archivo") 
+			#print("LLEGA AQUI-----------------lee archivo")
 			file.close()
 			#print("LLEGA AQUI-----------------cierra archgivo")
 			for x in text:
@@ -429,58 +429,58 @@ def Select_files(): #funcion para procesar los archivos señalados
 			stripped = [re_punc.sub('', w) for w in tokens]
 			# eliminar los tokens restantes que no estén en orden alfabético
 			words = [word for word in stripped if word.isalpha()]
-			
-				
+
+
 			#os.remove(z)#Se elimina el archivo z
-			pala=z.split('\\') #Se separa el arreglo dividido por \
+			pala=z.split('/') #Se separa el arreglo dividido por \
 			nombre_carpeta = pala[len(pala)-2]#Se obtiene el nombre de carpeta para poder hacer un archivo despues
 
-			
+
 			for r in words: #Se recorre todas las palabras extraidas del archivo
 			    if not r in stop_words: #Si la palabra no esta en la lista de stop_words se agregará al archivo nuevo de resultado
-			        #appendFile1 = open(ruta_contenedora + "\\" + "Texto_normalizado" + "\\" + nombre_carpeta +".txt", 'a') #Esto abrira el archivo que este en rutacontenedora\Texto_normalizado\ nom_carpeta.txt  (si no se encuentra el archivo, se crea)
+			        #appendFile1 = open(ruta_contenedora + "/" + "Texto_normalizado" + "/" + nombre_carpeta +".txt", 'a') #Esto abrira el archivo que este en rutacontenedora\Texto_normalizado\ nom_carpeta.txt  (si no se encuentra el archivo, se crea)
 			        #appendFile1.write(" " + r) #Se ecribe la palabra separada por un espacio en el nuevo
 			        #print("NORMALIZADAAAAAAAAAAAAAAAAAAAAAAA: ", rutaNormaliza)
 			        appendFile = open(rutaNormaliza + nombre_carpeta + ".txt", 'a')
 			        appendFile.write(" " + r) #Se ecribe la palabra separada por un espacio en el nuevo
-			
+
 			appendFile.write("\n")
 			appendFile.close()
 			#appendFile1.write("\n")
 			#appendFile1.close()
-		
+
 			#shutil.rmtree(ruta_contenedora)
 
 
 		funciones.crea_archivo_info_json(list_folders_selected, ruta_contenedora)#Usamos la funcion para crear un archivo json con informacion de las poblaciones subidas al sistema
 
-		
 
-		if os.path.exists('./Output'):
-			shutil.rmtree('./Output') #Elimina la carpeta OUTPUT
 
-		if os.path.exists('./static/csv'):
-			shutil.rmtree('./static/csv') #Elimina la carpeta OUTPUT
+		if os.path.exists('/home/DispoLexi/DispoLexi/Output'):
+			shutil.rmtree('/home/DispoLexi/DispoLexi/Output') #Elimina la carpeta OUTPUT
 
-		os.mkdir('./Output')   #Crea una carpeta llamada Output
-		os.mkdir('./static/csv')   #Crea una carpeta llamada Output
+		if os.path.exists('/home/DispoLexi/DispoLexi/static/csv'):
+			shutil.rmtree('/home/DispoLexi/DispoLexi/static/csv') #Elimina la carpeta OUTPUT
+
+		os.mkdir('/home/DispoLexi/DispoLexi/Output')   #Crea una carpeta llamada Output
+		os.mkdir('/home/DispoLexi/DispoLexi/static/csv')   #Crea una carpeta llamada Output
 
 		dirIn = rutaNormaliza
-		dirOut = "./Output/"
+		dirOut = "/home/DispoLexi/DispoLexi/Output/"
 		#resolution_r = int(resolution) #resolution_r guarda el valor de resolution convertido a entero
 		k = 2
 		w = 0.1
 		m = 1.0
 		idlvmod.main(dirIn, dirOut, 1) #Se manda a llamar a la funcion de cálculo de idlv
 		#idlvmodst.main(dirIn, dirOut, 1,k,w,m) #Se manda a llamar a la funcion de cálculo de idlv
-		
+
 
 		archivos_Idlv = list(get_idlv.load_files_names(dirOut)) #Crea una lista de rutas, cada ruta corresponde a un archivo que esta en la carpeta Output
 
 
 		####DICCIONARIO DE POBLACIONES Y VALORES IDLV--------------------------
 		dic_Poblaciones = funciones.crea_diccionario_poblaciones(archivos_Idlv)#Usamos la funcion para crear un diccionario con las palabras y valores idlv de cada poblacion
-		
+
 		#print("Diccionario a guardar: ",dic_Poblaciones)
 		funciones.crea_archivo_json_poblaciones(dic_Poblaciones)#Usamos esta funcion para crear un archivo json con la informacion de las poblaciones
 		#MANDAMOS A LLAMAR A LA FUNCION PARA QUE NOS REGRESE UN DICCIONARIO CON LAS PALABRAS QUE COINCIDEN EN LAS POBLACOINES DADAS
@@ -500,7 +500,7 @@ def Select_files(): #funcion para procesar los archivos señalados
 #@app.route('/graficaBarVer', methods=['GET', 'POST'])
 @app.route('/resultados')
 def resultados():
-	if os.path.isfile('./Archivos/Poblaciones.json'):
+	if os.path.isfile('/home/DispoLexi/DispoLexi/Archivos/Poblaciones.json'):
 		#print("entra en resultado")
 		return render_template('resultados.html')
 	else:

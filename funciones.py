@@ -15,8 +15,10 @@ import shutil
 #import string
 #import re
 from nltk.tokenize import word_tokenize
+import nltk
+nltk.download('punkt')
 #from nltk.corpus import stopwords
-import io 
+import io
 #import shutil
 import random
 
@@ -43,7 +45,7 @@ def allowed_file(filename):
 		filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 def carga_stop_words():
-	file = open('stop_words.txt', 'r', encoding="latin-1")
+	file = open('/home/DispoLexi/DispoLexi/stop_words.txt', 'r', encoding="latin-1")
 	text = file.read()
 	file.close()
 
@@ -58,7 +60,7 @@ def carga_stop_words():
 	#print(stop_words)
 	#print("FIN LISTA DE STOPWORDS")
 	return stop_words
-		
+
 def cantidad_de_palabras_iguales(lista_palabras_uno, lista_palabras_dos):
 	#print("funcion de palabras iguales")
 	contador = 0
@@ -69,7 +71,7 @@ def cantidad_de_palabras_iguales(lista_palabras_uno, lista_palabras_dos):
 	return contador
 
 def crea_archivo_csv(lista):
-	archivo_csv = open('./static/csv/DiagramaSankey.csv', 'w', newline ='')
+	archivo_csv = open('/home/DispoLexi/DispoLexi/static/csv/DiagramaSankey.csv', 'w', newline ='')
 	with archivo_csv:
 		writer = csv.writer(archivo_csv)
 		writer.writerows(lista)
@@ -85,7 +87,7 @@ def creaCSVlista(lista_de_palabras, lista_IDLV, poblacion):
 		lista.append([x,n])
 
 	#print("LISTA:",lista)
-	ruta = 'static/csv/' + poblacion + '.csv'
+	ruta = '/home/DispoLexi/DispoLexi/static/csv/' + poblacion + '.csv'
 	archivo_csv = open(ruta, 'w', newline ='')
 	with archivo_csv:
 		writer = csv.writer(archivo_csv)
@@ -177,7 +179,7 @@ def sankey(dic_Poblaciones, lista_poblaciones):
 			#print("///////////POBLACION: ",lista_poblaciones[k])
 			#print("///////////BUMERO PALABRAS: ",len(lista_palabras_temp))
 			#print("///////////DIVISION: ",division)
-			
+
 			cantidad_de_palabras = cantidad_de_palabras_iguales(listas_palabras_poblacion[0], listas_palabras_temp[0])
 			#print ("Cantidad de palabras iguales: ", cantidad_de_palabras)
 			for n in range(0,4):
@@ -207,7 +209,7 @@ def sankey(dic_Poblaciones, lista_poblaciones):
 						#print("INFORMACION CSV: ",informacion_csv)
 
 
-					'''Los siguientes if son para el grupo de palabras relevantes de la poblacion x 
+					'''Los siguientes if son para el grupo de palabras relevantes de la poblacion x
 					y se va cambiando la relevancia de la  poblacion k'''
 					if (n == 1) and (m == 0):
 						texto_uno = lista_poblaciones[x] + " (Palabras relevantes)"
@@ -231,7 +233,7 @@ def sankey(dic_Poblaciones, lista_poblaciones):
 						#print("INFORMACION CSV: ",informacion_csv)
 
 
-					'''Los siguientes if son para el grupo de palabras poco relevantes de la poblacion x 
+					'''Los siguientes if son para el grupo de palabras poco relevantes de la poblacion x
 					y se va cambiando la relevancia de la  poblacion k'''
 					if (n == 2) and (m == 0):
 						texto_uno = lista_poblaciones[x] + " (Palabras poco relevantes)"
@@ -255,7 +257,7 @@ def sankey(dic_Poblaciones, lista_poblaciones):
 						#print("INFORMACION CSV: ",informacion_csv)
 
 
-					'''Los siguientes if son para el grupo de palabras muy poco relevantes de la poblacion x 
+					'''Los siguientes if son para el grupo de palabras muy poco relevantes de la poblacion x
 					y se va cambiando la relevancia de la  poblacion k'''
 					if (n == 3) and (m == 0):
 						texto_uno = lista_poblaciones[x] + " (Palabras muy poco relevantes)"
@@ -276,7 +278,7 @@ def sankey(dic_Poblaciones, lista_poblaciones):
 						texto_uno = lista_poblaciones[x] + " (Palabras muy poco relevantes)"
 						texto_dos = lista_poblaciones[k] + " (Palabras muy poco relevantes)"
 						informacion_csv.append([texto_uno, texto_dos, cantidad_de_palabras])
-						
+
 
 
 
@@ -288,13 +290,13 @@ def sankey(dic_Poblaciones, lista_poblaciones):
 
 
 
-	#lista_palabras = list(dic_palabras.keys())#Se enlistan las palabras del diccionario de la primer poblacion, esto se hace para que después se puedan comparar esas palabras con las demas listas de palabras de las otras poblaciones	
+	#lista_palabras = list(dic_palabras.keys())#Se enlistan las palabras del diccionario de la primer poblacion, esto se hace para que después se puedan comparar esas palabras con las demas listas de palabras de las otras poblaciones
 	#for x in reversed(dic_palabras):
 		#lista_palabras_reversed.append(x)
 
 def detecta_palabras_iguales(dic_Poblaciones, lista_poblaciones, cantidad_de_palabras, opcion_tipo_palabras):
 	regresa_dic = {} #Se declara el diccionario que al final contendrá las palabras que coincideo y sus respectivos valores de idlv por palabra de poblacion
-	lista_palabras_nueva = []#Se declara la lista que contendrá las palabras que conciden en todas las poblaciones 
+	lista_palabras_nueva = []#Se declara la lista que contendrá las palabras que conciden en todas las poblaciones
 	idlv_lista = []#Se declara la lista que contendra los valores de idlv de las palabras que coinciden
 	dic_palabras = dic_Poblaciones[lista_poblaciones[0]]['Palabras'] #Se crea un diccionario que contiene el diccionario de palabras de la primer poblacion
 	lista_palabras = []
@@ -303,8 +305,8 @@ def detecta_palabras_iguales(dic_Poblaciones, lista_poblaciones, cantidad_de_pal
 	#Se revisa si la opcion es 1 o 2, si es 1 se buscan las palabras con mayor IDLV y si es 2 se buscan las de menor IDLV
 	if opcion_tipo_palabras == '1':
 		#print("OPCION 1")
-		lista_palabras = list(dic_palabras.keys())#Se enlistan las palabras del diccionario de la primer poblacion, esto se hace para que después se puedan comparar esas palabras con las demas listas de palabras de las otras poblaciones	
-	
+		lista_palabras = list(dic_palabras.keys())#Se enlistan las palabras del diccionario de la primer poblacion, esto se hace para que después se puedan comparar esas palabras con las demas listas de palabras de las otras poblaciones
+
 	elif opcion_tipo_palabras == '2':#Si la opcion es 2, se enlistan las palabras pero de menor a mayor IDLV
 		#print("OPCION 2")
 		for x in reversed(dic_palabras):
@@ -319,7 +321,7 @@ def detecta_palabras_iguales(dic_Poblaciones, lista_poblaciones, cantidad_de_pal
 			if z in palabras: #Condicional para saber si la palabra z esta en la lista de palabras de la poblacion x
 				#print("la palabra: ", z, "esta en: ", x)
 				contador += 1 #Si la palabra se encuentra en la poblacion x, el contador se incrementa en 1 y revisará la siguienta palabra z de la lista_palabras
-		
+
 		#Despues de revisar todas las palabras de lista_palabras en la lista de palabras de pla poblacion x se procede a revisar si estuvo en todas las poblaciones la palabra
 		if contador == len(lista_poblaciones) and len(lista_palabras_nueva) < cantidad_de_palabras: #Si el contador es igual al numero de poblaciones, quiere decir que estuvo la palabra en todas las listas de palabras de las poblaciones
 			#print ("LA PALABRA ",z,"ESTA EN TODAS LAS POBLACIONES")
@@ -337,7 +339,7 @@ def detecta_palabras_iguales(dic_Poblaciones, lista_poblaciones, cantidad_de_pal
 		for z in lista_palabras_nueva: #Se recorre la lista de palabras nueva que contiene las palabras que coinciden en todas las poblaciones
 			idlv_lista.append(dic_palabras[z]) #Se agrega el valor de idlv a la lista idlv_lista, se extrae con dic_palabras[z] donde z es la clave para buscar el valor
 		#print("VALOR IDLV de ",x, idlv_lista)
-		
+
 		dic_temporal = {}#Contiene el valor de IDLV y color
 		color = "rgba("
 		for k in range(3):
@@ -346,7 +348,7 @@ def detecta_palabras_iguales(dic_Poblaciones, lista_poblaciones, cantidad_de_pal
 		#dic_Palabras[x]['Color'] = color
 		#print("color poblacion",x,color)
 		dic_temporal['Color'] = color
-		dic_temporal['IDLV'] = idlv_lista 
+		dic_temporal['IDLV'] = idlv_lista
 		regresa_dic[x] = dic_temporal #Se crea una clave con el nombre de la poblacion x en el diccionario regresa_dic y se le agrega la lista idlv_lista
 
 
@@ -356,12 +358,12 @@ def detecta_palabras_iguales(dic_Poblaciones, lista_poblaciones, cantidad_de_pal
 def detecta_palabras_iguales_por_palabras(dic_Poblaciones, lista_poblaciones, lista_palabras):
 	regresa_dic = {} #Se declara el diccionario que al final contendrá las palabras que coincideo y sus respectivos valores de idlv por palabra de poblacion
 	lista_palabras_nueva = []
-	lista_Palabras_no_esta = []#Se declara la lista que contendrá las palabras que conciden en todas las poblaciones 
+	lista_Palabras_no_esta = []#Se declara la lista que contendrá las palabras que conciden en todas las poblaciones
 	idlv_lista = []#Se declara la lista que contendra los valores de idlv de las palabras que coinciden
 	#dic_palabras = dic_Poblaciones[lista_poblaciones[0]]['Palabras'] #Se crea un diccionario que contiene el diccionario de palabras de la primer poblacion
 	#lista_palabras = list(dic_palabras.keys())#Se enlistan las palabras del diccionario de la primer poblacion, esto se hace para que después se puedan comparar esas palabras con las demas listas de palabras de las otras poblaciones
 	#print("PALABRASSSS: ", lista_palabras, len(lista_poblaciones), lista_poblaciones)
-	
+
 	for z in lista_palabras:#Se inicializa el for para iterar z en la lista de palabras que sacamos de una poblacion
 		contador = 0#Contador que nos ayudará a saber en cuantas poblaciones esta la palabra de la variable z
 		for x in lista_poblaciones:#Otro for para iterar en la distintas poblacines que hay
@@ -370,7 +372,7 @@ def detecta_palabras_iguales_por_palabras(dic_Poblaciones, lista_poblaciones, li
 			if z in palabras: #Condicional para saber si la palabra z esta en la lista de palabras de la poblacion x
 				#print("la palabra: ", z, "esta en: ", x)
 				contador += 1 #Si la palabra se encuentra en la poblacion x, el contador se incrementa en 1 y revisará la siguienta palabra z de la lista_palabras
-		
+
 		#Despues de revisar todas las palabras de lista_palabras en la lista de palabras de pla poblacion x se procede a revisar si estuvo en todas las poblaciones la palabra
 		if contador == len(lista_poblaciones) and len(lista_palabras_nueva)<20: #Si el contador es igual al numero de poblaciones, quiere decir que estuvo la palabra en todas las listas de palabras de las poblaciones
 			#print ("LA PALABRA ",z,"ESTA EN TODAS LAS POBLACIONES")
@@ -392,7 +394,7 @@ def detecta_palabras_iguales_por_palabras(dic_Poblaciones, lista_poblaciones, li
 			else:
 				idlv_lista.append("0")
 		#print("VALOR IDLV de ",x, idlv_lista)
-		
+
 		dic_temporal = {}#Contiene el valor de IDLV y color
 		color = "rgba("
 		for k in range(3):
@@ -401,7 +403,7 @@ def detecta_palabras_iguales_por_palabras(dic_Poblaciones, lista_poblaciones, li
 		#dic_Palabras[x]['Color'] = color
 		#print("color poblacion",x,color)
 		dic_temporal['Color'] = color
-		dic_temporal['IDLV'] = idlv_lista 
+		dic_temporal['IDLV'] = idlv_lista
 		regresa_dic[x] = dic_temporal #Se crea una clave con el nombre de la poblacion x en el diccionario regresa_dic y se le agrega la lista idlv_lista
 
 
@@ -418,28 +420,28 @@ def total_de_palabras_archivo(ruta):
 	return numero_de_palabras
 
 def crea_archivo_info_json(list_folders_selected, ruta_contenedora):
-	dic_Poblaciones_Info={} 
+	dic_Poblaciones_Info={}
 	dic_Poblaciones_Info['poblaciones'] = list_folders_selected
-	dic_Poblaciones_Info['ruta_contenedora'] = ruta_contenedora + "\\"
+	dic_Poblaciones_Info['ruta_contenedora'] = ruta_contenedora + "/"
 	for x in list_folders_selected:
 		dic_Poblacion_Info = {}
-		path = ruta_contenedora + "\\" + x + "\\"
+		path = ruta_contenedora + "/" + x + "/"
 		contenido = os.listdir(path)
 		numero_archivos = len(contenido)
 		dic_Poblacion_Info['numero_de_archivos'] = numero_archivos
-		numero_de_palabras = total_de_palabras_archivo(ruta_contenedora + "\\" + "Texto_normalizado" + "\\" + x + ".txt")
+		numero_de_palabras = total_de_palabras_archivo(ruta_contenedora + "/" + "Texto_normalizado" + "/" + x + ".txt")
 		dic_Poblacion_Info['numero_de_palabras'] = numero_de_palabras
 		dic_Poblaciones_Info[x] = dic_Poblacion_Info
 
-	with open('Archivos/Poblaciones_Info_Files.json','w') as f:
-		json.dump(dic_Poblaciones_Info, f, indent = 4) 
+	with open('/home/DispoLexi/DispoLexi/Archivos/Poblaciones_Info_Files.json','w') as f:
+		json.dump(dic_Poblaciones_Info, f, indent = 4)
 
 def crea_archivo_json_poblaciones(dic_Poblaciones):
-	with open('Archivos/Poblaciones.json','w') as f:
+	with open('/home/DispoLexi/DispoLexi/Archivos/Poblaciones.json','w') as f:
 		json.dump(dic_Poblaciones, f, indent = 4)
 
 def crea_archivo_json_archivo(file):
-	with open('Archivos/file.json','w') as f:
+	with open('/home/DispoLexi/DispoLexi/Archivos/file.json','w') as f:
 		json.dump(file, f, indent = 4)
 
 def crea_diccionario_poblaciones(archivos_Idlv):
@@ -459,7 +461,7 @@ def crea_diccionario_poblaciones(archivos_Idlv):
 				lista_IDLV.append(token) #Se guarda en la lista de IDlv
 			else: #Si no es un 0 entonces es una palabra y se guarda en la lista de palabras
 				lista_de_palabras.append(token)
-			
+
 		#print("LISTA IDLV de: ",poblacion ,lista_IDLV)
 		#print("LISTA DE PALABRAS de: ",poblacion ,lista_de_palabras)
 
@@ -468,7 +470,7 @@ def crea_diccionario_poblaciones(archivos_Idlv):
 
 		for palabra, idlv in zip(lista_de_palabras, lista_IDLV): #En este for se recorre al mismo tiempo la lista de palabras y valor de IDLV
 			dic_Palabras[palabra] = idlv #Se guardan los dos valores en el diccionario de Palabras
-				
+
 		dic_Poblacion['Palabras'] = dic_Palabras # Creamos un diccionario llamado dic_Poblacion que contendrá las palabras de la poblacion en la que nos encontramos en el for
 		#dic_Poblacion['IDLV'] = lista_IDLV # Le agregamos la lista de IDLV al diccionario
 		#print(dic_Poblacion)
@@ -483,14 +485,14 @@ def lista_de_poblaciones(dic_Poblaciones):
 
 def abre_archivo_json_Poblaciones_datos():
 	diccionario = {}
-	with open('Archivos/Poblaciones.json', 'r') as f:
+	with open('/home/DispoLexi/DispoLexi/Archivos/Poblaciones.json', 'r') as f:
 		diccionario = json.load(f)
 
 	return diccionario
 
 def abre_archivo_json_Poblaciones_info():
 	diccionario = {}
-	with open('Archivos/Poblaciones_Info_Files.json', 'r') as f:
+	with open('/home/DispoLexi/DispoLexi/Archivos/Poblaciones_Info_Files.json', 'r') as f:
 		diccionario = json.load(f)
 
 	return diccionario
@@ -500,7 +502,7 @@ def color_aleatorio():
 	for k in range(3):
 		color = color + str(random.randrange(255)) + ","
 	color = color + "0.7)"
-	return color	
+	return color
 '''
 def crea_grafica_pie(diccionario_carpetas_archivos):
 	#Creacion de grafica pie
@@ -513,16 +515,16 @@ def crea_grafica_pie(diccionario_carpetas_archivos):
 	p.wedge(x=0, y=1, radius=0.4,
 		        start_angle=cumsum('angle', include_zero=True), end_angle=cumsum('angle'),
 		        line_color="white", fill_color='color', legend_field='country', source=data)
-			
+
 	p.axis.axis_label=None
 	p.axis.visible=False
 	p.grid.grid_line_color = None
-			
+
 
 	scriptGraficaPie, divPie = components(p)
 	#output_file("pie.html")
 	#show(p)
-		
+
 	cdn_js = CDN.js_files[0]
 	cdn_csss = CDN.css_files
 
@@ -538,16 +540,16 @@ def elimina_carpeta(ruta_contenedora):
 def elimina_carpetas(lista_carpetas_poblaciones, list_folders_selected, ruta_contenedora):
 	for carpeta in lista_carpetas_poblaciones:
 		if carpeta not in list_folders_selected:
-			elimina = ruta_contenedora + '\\' + carpeta
+			elimina = ruta_contenedora + '/' + carpeta
 			elimina_carpeta(elimina)
 
 def guarda_zip(contenedor, file):
-	
+
 	#Se extrae la hora y fecha actual del sistenma
 	fecha_hora = datetime.datetime.now()
 	#Se modifica la manera de imprimir la hora y fecha
 	fecha_y_hora = fecha_hora.strftime('%d%m%Y %H%M%S')
-			
+
 	filename = fecha_y_hora + "=" + file.filename #Se guarda la fecha y hora junto con el nombre del archivo para crear un nuevo nombre al archivo guardado.
 	file.save(os.path.join(contenedor, filename)) #Guarda el archivo que seleccionamos del explorador de archivos. Lo guarda en la ruta de app.config con el nombre de filename
 	#print("LLega nombre: ",file)
@@ -561,7 +563,7 @@ def extrae_zip(contenedor, filename):
 	filename: contiene el nombre del archivo zip
 	'''
 	#ruta_archivo_comprimido contiene la ruta del archivo .zip dentro de la carpeta Archivos
-	ruta_archivo_comprimido = contenedor + '\\' + filename
+	ruta_archivo_comprimido = contenedor + '/' + filename
 	#ruta_destino_de_archivo contiene dos cadenas, con split se separa la ruta del archivo.zip en dos cadenas
 	#la primera contiene la ruta del archivo pero sin el ".zip" y la segunda cadena contiene solo el ".zip"
 	ruta_destino_de_archivo = ruta_archivo_comprimido.split('.')
