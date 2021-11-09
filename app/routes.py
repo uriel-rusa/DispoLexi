@@ -148,9 +148,9 @@ def listasDL():
 		
 		lista = list(dic_Poblaciones[lista_poblaciones_seleccionadas[0]]['Palabras'].values())
 
-		print("Poblaciones:",lista_poblaciones_seleccionadas)
+		#print("Poblaciones:",lista_poblaciones_seleccionadas)
 		#print("Opcion: ", opcion_tipo_palabras)
-		print("cantidad de palabras,", cantidad_palabras, lista)
+		#print("cantidad de palabras,", cantidad_palabras, lista)
 
 
 		return render_template('listasDL.html',OUTPUT_FOLDER = OUTPUT_FOLDER, cantidad_palabras = cantidad_palabras, lista_poblaciones = lista_poblaciones_seleccionadas, dic_Poblaciones = dic_Poblaciones)
@@ -220,7 +220,7 @@ def disponibilidad_lexica():
 
 @app.route('/aplicacion')
 def aplicacion(valida = 0):
-	print("Valida: ", valida)
+	#print("Valida: ", valida)
 	return render_template('aplicacion.html', valida = valida)
 
 
