@@ -1,0 +1,8 @@
+flask
+Jinja2
+Werkzeug==1.0.1
+itsdangerous
+click
+MarkupSafe
+flask_bootstrap
+nltk
