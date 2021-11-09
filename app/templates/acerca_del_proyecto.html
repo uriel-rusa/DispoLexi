@@ -1,0 +1,91 @@
+{% extends 'layout.html' %}
+    <!--[if lte IE 9]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+        <![endif]-->
+
+{% block title %}
+    Sobre el Proyecto
+{% endblock %}
+
+
+{% block content %}
+ 
+     <!-- bradcam_area -->
+     <div class="bradcam_area">
+        <div class="single_bradcam  d-flex align-items-center bradcam_bg_1 overlay">
+              <div class="container">
+                    <div class="row align-items-center justify-content-center">
+                       <div class="col-xl-12">
+                          <div class="bradcam_text text-center">
+                            <div class="shape_1 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".2s">
+                                <img src="{{ url_for('static', filename = 'img/shape/shape_1.svg')}}" alt="">
+                            </div>
+                            <div class="shape_2 wow fadeInDown" data-wow-duration="1s" data-wow-delay=".3s">
+                                <img src="{{ url_for('static', filename = 'img/shape/shape_2.svg')}}" alt="">
+                            </div>
+                                <h3 class="wow fadeInRight" data-wow-duration="1s" data-wow-delay=".3s">Acerca de DispoLexi</h3>
+                          </div>
+                       </div>
+                    </div>
+              </div>
+           </div>
+     </div>
+    <!-- bradcam_area end -->
+
+    <!-- about_area_start  -->
+    <div class="about_area black_bg extra_padd">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="section_title text-center mb-80">
+                        <div class="section_title text-center mb-80">
+                <a href="{{ url_for('static', filename = 'archivos/DispoLexi.pdf')}}" class="boxed-btn3  wow fadeInLeft" data-wow-duration="1s" data-wow-delay=".7s" download>Descargar documento completo del proyecto</a>
+            </div>
+                        <p class="wow fadeInRight text-justify" data-wow-duration="1s" data-wow-delay=".4s" >
+El lenguaje es uno de los elementos que distinguen a los seres humanos
+del resto de los seres vivos, además permite la comunicación entre dos o más
+personas. El análisis del lenguaje ha tenido una gran relevancia en la historia del
+hombre, ya que puede ayudar a revelar aspectos y/o características importantes
+entre personas. Esto se puede realizar mediante signos (escritura) o mediante sonidos (voz).<br><br>
+El lenguaje es un aspecto muy importante para muchas diciplinas, ya que a través del lenguaje se puede conocer mucho de una persona o de iuna comunidad de personas. Por ejemplo la Antropología estudia el lenguaje de las personas en su contexto social y cultural, mientras que la psicología es otra ciencia que al igual que la antropología, estudia el comportamiento humano a través de sus pensamientos, emociones, instintos, sueños, lenguaje, inteligencia, percepción, tanto en su desarrollo normal como en los diferentes trastornos o problemas del pensamiento, de las emociones y del comportamiento.
+<br>
+<br>
+Como se puede observar, el lenguaje es muy importante a la hora de analizar personas o comunidades. Aunque siempre se han hecho análisis de comunidades, existe una limitación para los especialistas de estas disciplinas al momento de analizar comunidades y su comportamiento utilizando el lenguaje natural como base. Esto se debe a que haciendo el análisis de forma tradicional, tendrían que realizar un análisis por cada individuo. El tiempo que tomaría hacer el análisis de toda una comunidad dependería del número de personas y si la comunidad es muy grande, con miles de personas, podría ser casi imposible llevar a cabo un análisis de la manera tradicional. 
+<br><br>
+
+Este proyecto surge a partir de la problemática ya mencionada y la propuesta fue diseñar y desarrollar esta herramienta web que ayude al análisis del vocabulario de dos o más poblaciones a partir de los textos que estos generen. Esta herramienta está diseñada para que a través del procesamiento de lenguaje natural y la Disponibilidad Léxica, muestre de forma visual contrastes o similitudes entre el vocabulario de distintas poblaciones de interés. Con esto también se busca que el especialista pueda realizar el análisis de conjuntos de textos grandes en poco tiempo y que los datos obtenidos por esta herramienta le sirvan para realizar más estudios.
+ </p>
+ <hr  class="my-5">
+ <h3>Objetivos de este proyecto</h3><br>
+ <ul class="list-group list-group-flush" style="color: white; font-size: 20px;">
+    <h4>Objetivo general</h4>
+  <li >Desarrollar una herramienta web para visualizar y contrastar el vocabulario extraído mediante la disponibilidad léxica de dos o más poblaciones a través delanálisis de sus textos.</li><br>
+  <h4>Objetivos específicos</h4>
+
+  <li>Implementar el cálculo de la disponibilidad léxica para describir el léxico mental de una población de interés a través del análisis de los textos que ésta población produce.</li><br>
+  <li>Incorporar herramientas de visualización de información que permitan describir y contrastar el léxico mental de las poblaciones de interés.</li><br>
+  <li>Validar la utilidad de la herramienta desarrollada en un caso de estudio específico.</li>
+</ul>
+
+
+ <hr  class="my-5">
+<div class="section_title text-center mb-90">
+                <a href="{{ url_for('static', filename = 'archivos/DispoLexi.pdf')}}" class="boxed-btn3" data-wow-duration="1s" data-wow-delay=".7s" download>Descargar documento completo del proyecto</a>
+
+
+ <hr  class="my-2">
+                <a href="aplicacion" class="boxed-btn3" data-wow-duration="1s" data-wow-delay=".7s">Ir a la aplicación</a>
+            </div>
+
+                    </div>
+                </div>
+            </div>
+            <br><br>
+            
+           
+        </div>
+    </div>
+    <!-- about_area_end  -->
+
+
+{% endblock %}

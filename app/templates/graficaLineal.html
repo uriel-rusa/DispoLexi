@@ -1,0 +1,106 @@
+{% extends 'layout.html' %}
+    <!--[if lte IE 9]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+        <![endif]-->
+
+{% block title %}
+    DispoLexi | Gráfica Sankey
+{% endblock %}
+
+
+{% block content %}
+
+     <!-- bradcam_area -->
+     <div class="bradcam_area">
+        <div class="single_bradcam  d-flex align-items-center bradcam_bg_1 overlay">
+              <div class="container">
+                          <div class="bradcam_text text-center">
+                            <div class="shape_1 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".2s">
+                                <img src="{{ url_for('static', filename = 'img/shape/shape_1.svg')}}" alt="">
+                            </div>
+                            <div class="shape_2 wow fadeInDown" data-wow-duration="1s" data-wow-delay=".3s">
+                                <img src="{{ url_for('static', filename = 'img/shape/shape_2.svg')}}" alt="">
+                            </div>
+                          </div>
+              </div>
+           </div>
+     </div>
+    <!-- bradcam_area end -->
+
+    <section class="contact-section">
+        <div class="container">
+            <div style="width:75%;">
+                <canvas id="canvas"></canvas>
+            </div>
+
+        </div> 
+
+        </section>
+
+    <script>
+    var randomScalingFactor = function() {
+        return Math.ceil(Math.random() * 10.0) * Math.pow(10, Math.ceil(Math.random() * 5));
+    };
+
+    var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        var config = {
+            type: 'line',
+            data: {
+                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                datasets: [{
+                    label: 'My First dataset',
+                    backgroundColor: window.chartColors.red,
+                    borderColor: window.chartColors.red,
+                    data: [20,12,14,10,12,9,10],
+                    fill: false,
+                }, {
+                    label: 'My Second dataset',
+                    fill: false,
+                    backgroundColor: window.chartColors.blue,
+                    borderColor: window.chartColors.blue,
+                    data:[10,20,14,12,10,16,13],
+                }]
+            },
+            options: {
+                responsive: true,
+                title: {
+                    display: true,
+                    text: 'Chart.js Line Chart'
+                },
+                tooltips: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                hover: {
+                    mode: 'nearest',
+                    intersect: true
+                },
+                scales: {
+                    xAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Month'
+                        }
+                    }],
+                    yAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Value'
+                        }
+                    }]
+                }
+            }
+        };
+
+    var ctx2 = document.getElementById('canvas').getContext('2d');
+    var graficaRadar = new Chart(ctx2,config);
+    //window.onload = function() {
+      //  var ctx = document.getElementById('canvas').getContext('2d');
+        //window.myLine = new Chart(ctx, config);
+    //};
+
+    </script>
+
+{%endblock%}
