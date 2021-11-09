@@ -1,0 +1,15 @@
+{
+    "poblaciones": [
+        "EL UNIVERSAL",
+        "FACEBOOK"
+    ],
+    "ruta_contenedora": "C:\\Users\\uriel\\Documents\\entornos virtuales python\\DispoLexi\\app\\Archivos\\Ma\u00f1aneras\\",
+    "EL UNIVERSAL": {
+        "numero_de_archivos": 8,
+        "numero_de_palabras": 2303
+    },
+    "FACEBOOK": {
+        "numero_de_archivos": 8,
+        "numero_de_palabras": 697
+    }
+}
